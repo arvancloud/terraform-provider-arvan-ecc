@@ -13,31 +13,61 @@ type SSHKey struct {
 	Fingerprint types.String `tfsdk:"fingerprint"`
 }
 
-// // OrderItem -
-// type OrderItem struct {
-// 	Coffee   Coffee `tfsdk:"coffee"`
-// 	Quantity int    `tfsdk:"quantity"`
-// }
+// Server -
+type Server struct {
+	ID             types.String    `tfsdk:"id"`
+	Name           types.String    `tfsdk:"name,omitempty"`
+	DiskSize       types.Int64     `tfsdk:"disk_size,omitempty"`
+	NetworkIds     []types.String  `tfsdk:"network_ids,omitempty"`
+	FlavorId       types.String    `tfsdk:"flavor_id,omitempty"`
+	ImageId        types.String    `tfsdk:"image_id,omitempty"`
+	SecurityGroups []SecurityGroup `tfsdk:"security_groups,omitempty"`
+	SSHKey         types.Bool      `tfsdk:"ssh_key,omitempty"`
+	KeyName        types.String    `tfsdk:"key_name,omitempty"`
+	Count          types.Int64     `tfsdk:"count,omitempty"`
+	CreateType     types.String    `tfsdk:"crate_type,omitempty"`
+}
 
-// // Coffee -
-// // This Coffee struct is for Order.Items[].Coffee which does not have an
-// // ingredients field in the schema defined by plugin framework. Since the
-// // resource schema must match the struct exactly (extra field will return an
-// // error). This struct has Ingredients commented out.
-// type Coffee struct {
-// 	ID          int          `tfsdk:"id"`
-// 	Name        types.String `tfsdk:"name"`
-// 	Teaser      types.String `tfsdk:"teaser"`
-// 	Description types.String `tfsdk:"description"`
-// 	Price       types.Number `tfsdk:"price"`
-// 	Image       types.String `tfsdk:"image"`
-// 	// Ingredients []Ingredient   `tfsdk:"ingredients"`
-// }
+// SecurityGroup -
+type SecurityGroup struct {
+	// ID of security group
+	Id string `tfsdk:"id,omitempty"`
+	// name of security group
+	Name string `tfsdk:"name,omitempty"`
+	// description about security group
+	Description string `tfsdk:"description,omitempty"`
+	// Real name of security group
+	RealName string `tfsdk:"real_name,omitempty"`
+	// Security group is read only
+	ReadOnly bool `tfsdk:"read_only,omitempty"`
+	// Instances with this security group
+	// Abraks []interface{} `tfsdk:"abraks,omitempty"`
+	// rules of security group
+	Rules []SecurityGroupRule `tfsdk:"rules,omitempty"`
+	// list of security group tags
+	// Tags []Tag `tfsdk:"tags,omitempty"`
+}
 
-// // Ingredient -
-// // type Ingredient struct {
-// // 	ID       int    `tfsdk:"ingredient_id"`
-// // 	Name     string `tfsdk:"name"`
-// // 	Quantity int    `tfsdk:"quantity"`
-// // 	Unit     string `tfsdk:"unit"`
-// // }
+type SecurityGroupRule struct {
+	Id string `tfsdk:"id,omitempty"`
+	// group id of security group rule
+	GroupId string `tfsdk:"group_id,omitempty"`
+	// description about security group rule
+	Description string `tfsdk:"description,omitempty"`
+	// The remote IP prefix to be associated with this security group rule.
+	Ip string `tfsdk:"ip,omitempty"`
+	// The maximum port number in the range that is matched by the securitygroup rule.
+	PortEnd int32 `tfsdk:"port_end,omitempty"`
+	// The minimum port number in the range that is matched by the security group rule.
+	PortStart int32 `tfsdk:"port_start,omitempty"`
+	// The protocol that is matched by the security group rule
+	Protocol string `tfsdk:"protocol,omitempty"`
+	// The direction in which the security group rule is applied(ingress or egress)
+	Direction string `tfsdk:"direction,omitempty"`
+	// IPV4 or IPV6
+	EtherType string `tfsdk:"ether_type,omitempty"`
+	// Rule creation time
+	CreatedAt string `tfsdk:"created_at,omitempty"`
+	// Rule update time
+	UpdatedAt string `tfsdk:"updated_at,omitempty"`
+}
